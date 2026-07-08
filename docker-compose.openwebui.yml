@@ -1,0 +1,37 @@
+services:
+  safetyguard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: safetyguard-api
+    ports:
+      - "8080:8080"
+    environment:
+      APP_DEV_MODE: "true"
+      APP_OPENAI_COMPAT_DEFAULT_MODEL: "qwen2.5:1.5b"
+      APP_OLLAMA_URL: "http://host.docker.internal:11434"
+      APP_OLLAMA_MODEL: "qwen2.5:1.5b"
+    restart: unless-stopped
+
+  openwebui:
+    build:
+      context: .
+      dockerfile: Dockerfile.openwebui
+    container_name: safetyguard-openwebui
+    depends_on:
+      - safetyguard
+    ports:
+      - "3000:8080"
+    volumes:
+      - openwebui-data:/app/backend/data
+    environment:
+      OPENAI_API_BASE_URLS: http://safetyguard:8080/v1
+      OPENAI_API_BASE_URL: http://safetyguard:8080/v1
+      OPENAI_API_KEYS: dev-key
+      OPENAI_API_KEY: dev-key
+      DEFAULT_MODELS: qwen2.5:1.5b
+      WEBUI_AUTH: "False"
+    restart: unless-stopped
+
+volumes:
+  openwebui-data:

@@ -1,0 +1,25 @@
+# Open WebUI for local development
+# Connects to SafetyGuard OpenAI-compatible API on local Docker network
+
+FROM ghcr.io/open-webui/open-webui:main
+
+# Open WebUI server port
+EXPOSE 8080
+
+# Local persistence inside container path expected by Open WebUI
+VOLUME ["/app/backend/data"]
+
+# OpenAI-compatible provider settings for SafetyGuard
+# Use /v1 because SafetyGuard exposes /v1/models and /v1/chat/completions
+ENV OPENAI_API_BASE_URLS=http://safetyguard:8080/v1
+ENV OPENAI_API_BASE_URL=http://safetyguard:8080/v1
+
+# In dev mode, SafetyGuard accepts generic key if APP_DEV_MODE=true
+ENV OPENAI_API_KEYS=dev-key
+ENV OPENAI_API_KEY=dev-key
+
+# Optional: force default model in UI dropdown
+ENV DEFAULT_MODELS=qwen2.5:1.5b
+
+# Optional: avoid first-run auth wall for local testing
+ENV WEBUI_AUTH=False
