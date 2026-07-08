@@ -14,7 +14,7 @@ dependencies = [
 
     # Data validation & settings
     "pydantic>=2.10.0",
-    "pydantic-settings>=2.6.0",
+    "pydantic-settings>=2.14.2",
 
     # Authentication
     "python-jose[cryptography]==3.3.0",
