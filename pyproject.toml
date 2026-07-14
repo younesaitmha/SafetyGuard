@@ -1,8 +1,8 @@
 [project]
 name = "SafetyGuard"
 version = "0.1.0"
-description = "Secure LLM API gateway with policy, scanning, retrieval, tool, and output guards"
-readme = "docs/README.md"
+description = "Security-first FastAPI gateway for LLM, RAG, and agent workflows with policy, DLP, retrieval, tool, and output guardrails"
+readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     # Web framework & server
