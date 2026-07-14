@@ -3,6 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
+COPY README.md ./README.md
 COPY docs/README.md ./docs/README.md
 COPY app ./app
 COPY tests ./tests
